@@ -1,1 +1,3 @@
-#simple shell
+# simple shell
+
+Creating a simple shell
