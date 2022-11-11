@@ -12,9 +12,10 @@ char **tokenize(char *str)
 
 	tokens = malloc(sizeof(char *) * 100);
 
-	tokens[0] = strtok(str, " ");
+	tokens[0] = strtok(str, " \n");
 	i = 1;
-	while ((tokens[i] = strtok(NULL, " ")))
+	while ((tokens[i] = strtok(NULL, " \n")))
 		i++;
+
 	return tokens;
 }
