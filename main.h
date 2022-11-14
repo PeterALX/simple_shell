@@ -11,9 +11,12 @@
 
 extern char **environ;
 
-char **tokenize(char *);
+char **tokenize(char *, char *);
 int strcompare(char *str1, char *str2);
+int is_substring(char *str1, char *str2);
+int find_command(char *command, char **environ);
 
 void printstr(char **str_arr);
+char *_strcpy(char *src);
 
 #endif

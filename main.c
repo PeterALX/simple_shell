@@ -17,7 +17,7 @@ int main()
 	{
 		write(1, "$ ",2);
 		getline(&lineptr, &n, stdin);
-		argv = tokenize(lineptr);
+		argv = tokenize(lineptr, " \n");
 
 		if (strcompare(argv[0], "exit") == 1)
 			break;
@@ -27,6 +27,17 @@ int main()
 			printstr(environ);
 			continue;
 		}
+
+		if (is_substring("/", argv[0]) || is_substring("./", argv[0]))
+		{
+			printf("do not use path!\n");
+		}
+		else
+		{
+			printf("use path\n");
+			find_command(argv[0], environ);
+		}
+
 
 		if (fork() == 0)
 		{
