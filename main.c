@@ -43,6 +43,7 @@ int main()
 		{
 			execve(argv[0], argv, environ);
 			printf("No such file or directory\n");
+			break;
 		}
 		else
 			wait(NULL);
