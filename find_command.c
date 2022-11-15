@@ -6,7 +6,7 @@
  * @environ: the environment
  * Return: 0 if command is found, -1 if command not found
  */
-int find_command(char *command, char **environ)
+char *find_command(char *command, char **environ)
 {
 	int i = 0;
 	char *path;
@@ -14,20 +14,18 @@ int find_command(char *command, char **environ)
 	DIR *dir;
 	struct dirent *read_entry;
 	int status = 0;
-
+	char *full_path;
 
 	while (environ[i])
 	{
 		if (is_substring("PATH=", environ[i]))
 		{
 			path = _strcpy(environ[i]);
-			printf("path copied:%s\n", path);
 			tokenized_path = tokenize(path + 5 , ":");
 			break;
 		}
 		i++;
 	}
-	printf ("Command: %s\n", command);
 
 	i = 0;
 	while (tokenized_path[i] && status == 0)
@@ -39,7 +37,9 @@ int find_command(char *command, char **environ)
 		{
 			if (strcompare(command, read_entry->d_name) == 1)
 			{
-				printf ("Match found\n");
+				full_path = _strcpy(tokenized_path[i]);
+				full_path = str_append(full_path, "/");
+				full_path = str_append(full_path, command);
 				status = 1;
 				break;
 			}
@@ -48,5 +48,9 @@ int find_command(char *command, char **environ)
 		i++;
 		closedir(dir);
 	}
-	return (0);
+
+	if (status == 1)
+		return (full_path);
+	else
+		return (NULL);
 }
