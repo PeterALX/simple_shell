@@ -3,7 +3,7 @@
 /**
 *printstr - prints an array of strings
 *
-*@environ: array of strings to be printed.
+*@str_arr: array of strings to be printed.
 */
 
 void printstr(char **str_arr)
@@ -20,11 +20,10 @@ void printstr(char **str_arr)
 		{
 			str[0] = str_arr[i][n];
 
-			write (1, str, 1);
+			write(1, str, 1);
 			n++;
 		}
-		
 		i++;
-		write(1,"\n", 1);
+		write(1, "\n", 1);
 	}
 }

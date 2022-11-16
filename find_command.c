@@ -21,7 +21,7 @@ char *find_command(char *command, char **environ)
 		if (is_substring("PATH=", environ[i]))
 		{
 			path = _strcpy(environ[i]);
-			tokenized_path = tokenize(path + 5 , ":");
+			tokenized_path = tokenize(path + 5, ":");
 			break;
 		}
 		i++;
@@ -38,8 +38,14 @@ char *find_command(char *command, char **environ)
 			if (strcompare(command, read_entry->d_name) == 1)
 			{
 				full_path = _strcpy(tokenized_path[i]);
+				if (full_path == NULL)
+					return (NULL);
 				full_path = str_append(full_path, "/");
+				if (full_path == NULL)
+					return (NULL);
 				full_path = str_append(full_path, command);
+				if (full_path == NULL)
+					return (NULL);
 				status = 1;
 				break;
 			}
@@ -48,6 +54,10 @@ char *find_command(char *command, char **environ)
 		i++;
 		closedir(dir);
 	}
+
+
+	i = 0;
+	free(path);
 
 	if (status == 1)
 		return (full_path);
