@@ -39,13 +39,22 @@ char *find_command(char *command, char **environ)
 			{
 				full_path = _strcpy(tokenized_path[i]);
 				if (full_path == NULL)
+				{
+					free(tokenized_path);
 					return (NULL);
+				}
 				full_path = str_append(full_path, "/");
 				if (full_path == NULL)
+				{
+					free(tokenized_path);
 					return (NULL);
+				}
 				full_path = str_append(full_path, command);
 				if (full_path == NULL)
+				{
+					free(tokenized_path);
 					return (NULL);
+				}
 				status = 1;
 				break;
 			}
@@ -58,6 +67,7 @@ char *find_command(char *command, char **environ)
 
 	i = 0;
 	free(path);
+	free(tokenized_path);
 
 	if (status == 1)
 		return (full_path);

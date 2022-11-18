@@ -5,5 +5,5 @@ Creating a simple shell
 
 
 # Authors
--[Dennis Gicheru](https://github.com/DennisGicheru)  
+-[Dennis Gicheru](https://github.com/DennisGicheru)
 -[Peter Kioko](https://github.com/PeterALX)

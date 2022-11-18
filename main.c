@@ -12,8 +12,8 @@ int main(void)
 	size_t n;
 	int c = 0;
 	int number;
-	
-	if(isatty(0) == 0)
+
+	if (isatty(0) == 0)
 	{
 		number = getline(&lineptr, &n, stdin);
 		while (lineptr[number - 1] == '\n')
@@ -21,7 +21,7 @@ int main(void)
 			execute(lineptr);
 			number = getline(&lineptr, &n, stdin);
 		}
-		
+		free(lineptr);
 		return (0);
 	}
 	while (c == 0)
@@ -32,6 +32,7 @@ int main(void)
 
 	}
 
+	free(lineptr);
 	return (0);
 }
 int execute(char *lineptr)
@@ -44,10 +45,14 @@ int execute(char *lineptr)
 		return (0);
 	/* check for built ins */
 	if (strcompare(argv[0], "exit") == 1)
+	{
+		free(argv);
 		return (1);
+	}
 	if (strcompare(argv[0], "env") == 1)
 	{
 		printstr(environ);
+		free(argv);
 		return (0);
 	}
 
@@ -58,6 +63,7 @@ int execute(char *lineptr)
 		{
 			execve(argv[0], argv, environ);
 			printf("No such file or directory\n");
+			free(argv);
 			return (0);
 		}
 		else
@@ -72,11 +78,11 @@ int execute(char *lineptr)
 			{
 				execve(full_path, argv, environ);
 				printf("something wrong while executing %s\n", full_path);
+				free(argv);
 				return (0);
 			}
 			else
 			{
-				free(full_path);
 				wait(NULL);
 			}
 
@@ -85,6 +91,8 @@ int execute(char *lineptr)
 			printf("No such file or directory\n");
 	}
 
+	free(argv);
+	free(full_path);
 	return (0);
 
 }
