@@ -17,6 +17,7 @@ int strcompare(char *str1, char *str2);
 int is_substring(char *str1, char *str2);
 char *find_command(char *command, char **environ);
 char *str_append(char *dest, char *substr);
+int execute(char *lineptr);
 
 void printstr(char **str_arr);
 char *_strcpy(char *src);

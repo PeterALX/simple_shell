@@ -1,6 +1,5 @@
 #include "main.h"
 
-int execute(char *lineptr);
 /**
 * main - a simple shell
 *
