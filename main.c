@@ -21,6 +21,7 @@ int main(void)
 			number = getline(&lineptr, &n, stdin);
 		}
 		free(lineptr);
+		lineptr = NULL;
 		return (0);
 	}
 	while (c == 0)
@@ -30,7 +31,6 @@ int main(void)
 		c = execute(lineptr);
 
 	}
-
 	free(lineptr);
 	return (0);
 }
@@ -56,7 +56,7 @@ int execute(char *lineptr)
 	}
 
 	/* check whether to use command finder*/
-	if (is_substring("/", argv[0]) || is_substring("./", argv[0]))
+	if (is_substring("/", argv[0]) || is_substring("./", argv[0]) || is_substring("../", argv[0]))
 	{
 		if (fork() == 0)
 		{
@@ -91,7 +91,6 @@ int execute(char *lineptr)
 	}
 
 	free(argv);
-	free(full_path);
 	return (0);
 
 }
